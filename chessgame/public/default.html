@@ -6,7 +6,12 @@
     <link rel="stylesheet" href="/default.css" />
   </head>
   <body>
-    <h1>Real Time Chess</h1>
+    <div class="page login" id='page-login'>
+      <h1>Real Time Chess</h1>
+      <div class='logo'></div>
+      <input id='username'></input>
+      <button id='login'>Enter Game</button>
+    </div>
     <div id='gameBoard'></div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="lib/chess.min.js"></script>

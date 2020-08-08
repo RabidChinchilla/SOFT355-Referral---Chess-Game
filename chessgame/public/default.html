@@ -12,8 +12,27 @@
       <input id='username'></input>
       <button id='login'>Enter Game</button>
     </div>
-    <div id='gameBoard'></div>
+    <div class="page lobby" id='page-lobby'>
+      <h1>Real Time Chess</h1>
+      <h2 id='userlabel'></h2>
+      <h3>Active game</h3>
+      <div id='gamesList'>
+        No Active games
+      </div>
+      <h3>Active Players</h3>
+      <div id='userList'>
+        No users active
+      </div>
+    </div>
+    <div class="page game" id='page-game'>
+      <button id='game-back'>Back</button>
+      <button id='game-resign'>Resign</button>
+      <div id='game-board' style="width: 400px"></div>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
+    <script src="lib/winjs/js/base.min.js"></script>
+    <script src="lib/winjs/js/ui.min.js"></script>
     <script src="lib/chess.min.js"></script>
     <script src="lib/chessboard-0.3.0.min.js"></script>
     <script src="lib/jquery-1.11.1.js"></script>

@@ -1,9 +1,14 @@
 body {
 	overflow-y: auto;
-	display: flex;
+	display: block;
 	align-items: center;
-        justify-content: center;
-} 
+  justify-content: center;
+}
+
+h1 {
+	display: block;
+	align-items: center;
+}
 
 #gameBoard {
     width: 400px;

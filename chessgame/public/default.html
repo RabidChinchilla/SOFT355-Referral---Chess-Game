@@ -14,6 +14,7 @@
     </div>
     <div class="page lobby" id='page-lobby'>
       <h1>Real Time Chess</h1>
+      <div class='logo'></div>
       <h2 id='userlabel'></h2>
       <h3>Active game</h3>
       <div id='gamesList'>
@@ -25,9 +26,9 @@
       </div>
     </div>
     <div class="page game" id='page-game'>
+      <div id='game-board' style="width: 400px"></div>
       <button id='game-back'>Back</button>
       <button id='game-resign'>Resign</button>
-      <div id='game-board' style="width: 400px"></div>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>

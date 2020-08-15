@@ -154,23 +154,8 @@
       var onDragStart = function(source, piece, position, orientation) {
         if (game.game_over() === true || (game.turn() === 'w' && piece.search(/^b/) !== -1) || (game.turn() === 'b' && piece.search(/^w/) !== -1) || (game.turn() !== playerColor[0])) {
           return false;
-          window.alert("Game Over!");
-        }
-        else if (game.in_stalemate() === true) {
-          window.alert("Stalemate");
-        }
-        else if (game.in_threefold_repetition() === true) {
-          window.alert("You are in threefold repetition");
-        }
-        else if (game.insufficient_material() === true) {
-          window.alert("Insufficient material to continue game");
-        }
-        else if (game.in_draw() === true) {
-          window.alert("It's a Draw!");
         }
       };
-
-
 
       var onDrop = function(source, target) {
         // see if the move is legal
@@ -194,5 +179,7 @@
       var onSnapEnd = function() {
         board.position(game.fen());
       };
+
+
     });
 })();

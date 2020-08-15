@@ -6,13 +6,14 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongo = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/chessgame', function(err,db){
+mongoose.connect('mongodb://localhost:27017/chessgame', function(err, db){
   if(err){
     console.log("database not connected");
   }
   else{
     console.log("database connected");
   }
+
 });
 var port = process.env.PORT || 3000;
 
@@ -44,19 +45,19 @@ io.on('connection', function(socket) {
         if (!users[userId]) {
             console.log('creating new user');
             users[userId] = {userId: socket.userId, games:{}};
-        } else {
+        }
+        else {
             console.log('user found!');
             Object.keys(users[userId].games).forEach(function(gameId) {
                 console.log('gameid - ' + gameId);
             });
         }
 
-        socket.emit('login', {users: Object.keys(lobbyUsers),
-                              games: Object.keys(users[userId].games)});
+        socket.emit('login', {users: Object.keys(lobbyUsers), games: Object.keys(users[userId].games)});
         lobbyUsers[userId] = socket;
 
         socket.broadcast.emit('joinlobby', socket.userId);
-    }
+    };
 
     socket.on('invite', function(opponentId) {
         console.log('got an invite from: ' + socket.userId + ' --> ' + opponentId);

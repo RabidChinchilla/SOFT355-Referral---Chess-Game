@@ -34,7 +34,7 @@
 
       socket.on('resign', function(msg) {
             if (msg.gameId == serverGame.id) {
-
+              window.alert("Your opponent has resigned"); //let's player know their opponent has resigned
               socket.emit('login', username);
 
               $('#page-lobby').show();
@@ -90,7 +90,7 @@
 
       $('#game-resign').on('click', function() {
         socket.emit('resign', {userId: username, gameId: serverGame.id});
-
+        window.alert("You have resigned"); //sends alert to player to has resigned
         socket.emit('login', username);
         $('#page-game').hide();
         $('#page-lobby').show();
@@ -114,9 +114,7 @@
       var updateGamesList = function() {
         document.getElementById('gamesList').innerHTML = '';
         myGames.forEach(function(game) {
-          $('#gamesList').append($('<button>')
-                        .text('#'+ game)
-                        .on('click', function() {
+          $('#gamesList').append($('<button>').text('#'+ game).on('click', function() {
                           socket.emit('resumegame',  game);
                         }));
         });
@@ -125,9 +123,7 @@
       var updateUserList = function() {
         document.getElementById('userList').innerHTML = '';
         usersOnline.forEach(function(user) {
-          $('#userList').append($('<button>')
-                        .text(user)
-                        .on('click', function() {
+          $('#userList').append($('<button>').text(user).on('click', function() {
                           socket.emit('invite',  user);
                         }));
         });
@@ -158,19 +154,19 @@
       var onDragStart = function(source, piece, position, orientation) {
         if (game.game_over() === true || (game.turn() === 'w' && piece.search(/^b/) !== -1) || (game.turn() === 'b' && piece.search(/^w/) !== -1) || (game.turn() !== playerColor[0])) {
           return false;
-          window.alert("Game Over!")
+          window.alert("Game Over!");
         }
         else if (game.in_stalemate() === true) {
-          window.alert("Stalemate")
+          window.alert("Stalemate");
         }
         else if (game.in_threefold_repetition() === true) {
-          window.alert("You are in threefold repetition")
+          window.alert("You are in threefold repetition");
         }
         else if (game.insufficient_material() === true) {
-          window.alert("Insufficient material to continue game")
+          window.alert("Insufficient material to continue game");
         }
         else if (game.in_draw() === true) {
-          window.alert("It's a Draw!")
+          window.alert("It's a Draw!");
         }
       };
 

@@ -6,15 +6,21 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongo = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/chessgame', function(err, db){
+mongoose.connect('mongodb://localhost:27017/chessgame', { useNewUrlParser: true }, function(err, db){
   if(err){
     console.log("database not connected");
   }
   else{
     console.log("database connected");
   }
-
 });
+const leaderboardSchema = new mongoose.Schema({
+  name: String
+  wins: Integer
+});
+const player = mongoose.model('player', leaderboardSchema);
+var db = mongoose.connection;
+var table = db.collection('leaderboard').find({});
 var port = process.env.PORT || 3000;
 
 //declaring as objects

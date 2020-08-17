@@ -14,11 +14,11 @@ mongoose.connect('mongodb://localhost:27017/chessgame', { useNewUrlParser: true 
     console.log("database connected");
   }
 });
-const leaderboardSchema = new mongoose.Schema({
-  name: String
-  wins: Integer
-});
-const player = mongoose.model('player', leaderboardSchema);
+//const leaderboardSchema = new mongoose.Schema({
+  //name: String
+  //wins: Integer
+//});
+//const player = mongoose.model('player', leaderboardSchema);
 var db = mongoose.connection;
 var table = db.collection('leaderboard').find({});
 var port = process.env.PORT || 3000;
@@ -36,6 +36,19 @@ app.get('/', function(req, res) {
 
 app.get('/homepage/', function(req, res) {
  res.sendFile(__dirname + '/homepage/homepage.html');
+});
+
+app.get('/', function(req, res, next) {
+  var resultArray = [];
+  var cursor = db.collection('leaderboard').find({});
+  cursor.forEach(function(doc){
+    assert.notEqual(null, doc);
+    resultArray.push(doc);
+  }, function(err, doc){
+    assert.equal(null, err);
+    db.close();
+    console.log(resultArray);
+  });
 });
 
 io.on('connection', function(socket) {

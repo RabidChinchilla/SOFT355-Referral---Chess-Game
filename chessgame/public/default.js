@@ -9,6 +9,9 @@
       var myGames = [];
       socket = io();
 
+      //var db = mongoose.connection;
+
+
       //////////////////////////////
       // Socket.io handlers
       //////////////////////////////
@@ -19,6 +22,8 @@
 
             myGames = msg.games;
             updateGamesList();
+
+            //updateLeaderboard();
       });
 
       socket.on('joinlobby', function (msg) {
@@ -99,6 +104,7 @@
       var addUser = function(userId) {
         usersOnline.push(userId);
         updateUserList();
+        //updateLeaderboard();
       };
 
      var removeUser = function(userId) {
@@ -107,7 +113,6 @@
                 usersOnline.splice(i, 1);
             }
          }
-
          updateUserList();
       };
 
@@ -128,6 +133,18 @@
                         }));
         });
       };
+
+    //  var updateLeaderboard = function(){
+    //    document.getElementById('leaderboard').innerHTML = '';
+    //    var table = db.collection('leaderboard').find({});
+    //    const results = table.toArray();
+    //    if (results.length > 0) {
+    //    results.forEach((result, results.length) => {
+
+    //        console.log(result);
+    //        // Here you could build your html or put the results in some other data structure you want to work with
+    //    });
+    //};
 
 
       // Chess Game
@@ -171,7 +188,6 @@
         } else {
            socket.emit('move', {move: move, gameId: serverGame.id, board: game.fen()});
         }
-
       };
 
       // update the board position after the piece snap

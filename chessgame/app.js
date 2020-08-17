@@ -5,7 +5,7 @@ app.use(express.static('homepage'));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongo = require('mongodb').MongoClient;
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/chessgame', { useNewUrlParser: true }, function(err, db){
   if(err){
     console.log("database not connected");
@@ -14,13 +14,8 @@ mongoose.connect('mongodb://localhost:27017/chessgame', { useNewUrlParser: true 
     console.log("database connected");
   }
 });
-//const leaderboardSchema = new mongoose.Schema({
-  //name: String
-  //wins: Integer
-//});
-//const player = mongoose.model('player', leaderboardSchema);
-var db = mongoose.connection;
-var table = db.collection('leaderboard').find({});
+var leaderboardSchema = new mongoose.Schema({name: String, wins: Number}, {collection: 'leaderboard'});
+var leaderboard = mongoose.model('leaderboard', leaderboardSchema);
 var port = process.env.PORT || 3000;
 
 //declaring as objects
@@ -38,16 +33,9 @@ app.get('/homepage/', function(req, res) {
  res.sendFile(__dirname + '/homepage/homepage.html');
 });
 
-app.get('/', function(req, res, next) {
-  var resultArray = [];
-  var cursor = db.collection('leaderboard').find({});
-  cursor.forEach(function(doc){
-    assert.notEqual(null, doc);
-    resultArray.push(doc);
-  }, function(err, doc){
-    assert.equal(null, err);
-    db.close();
-    console.log(resultArray);
+app.get('/leaderboard', function(req, res){
+  mongoose.model('leaderboard').find(function(err, leaderboard) {
+    res.send(leaderboard);
   });
 });
 

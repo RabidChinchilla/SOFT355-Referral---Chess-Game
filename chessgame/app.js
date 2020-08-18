@@ -16,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/chessgame', { useNewUrlParser: true 
 });
 var leaderboardSchema = new mongoose.Schema({name: String, wins: Number}, {collection: 'leaderboard'});
 var leaderboard = mongoose.model('leaderboard', leaderboardSchema);
+//var leaderboardPretty = leaderboard.prototype.toObject();
 var port = process.env.PORT || 3000;
 
 //declaring as objects
@@ -36,6 +37,7 @@ app.get('/homepage/', function(req, res) {
 app.get('/leaderboard', function(req, res){
   mongoose.model('leaderboard').find(function(err, leaderboard) {
     res.send(leaderboard);
+    //res.send(leaderboardPretty);
   });
 });
 

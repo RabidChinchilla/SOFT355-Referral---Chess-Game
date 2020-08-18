@@ -8,9 +8,11 @@
       var usersOnline = [];
       var myGames = [];
       socket = io();
-
-      //var db = mongoose.connection;
-
+      //var mongo = require('mongodb').MongoClient;
+      //var mongoose = require('mongoose');
+      //mongoose.connect('mongodb://localhost:27017/chessgame', { useNewUrlParser: true });
+      //var leaderboardSchema = new mongoose.Schema({name: String, wins: Number}, {collection: 'leaderboard'});
+      //var leaderboard = mongoose.model('leaderboard', leaderboardSchema);
 
       //////////////////////////////
       // Socket.io handlers
@@ -22,8 +24,6 @@
 
             myGames = msg.games;
             updateGamesList();
-
-            //updateLeaderboard();
       });
 
       socket.on('joinlobby', function (msg) {
@@ -104,7 +104,6 @@
       var addUser = function(userId) {
         usersOnline.push(userId);
         updateUserList();
-        //updateLeaderboard();
       };
 
      var removeUser = function(userId) {
@@ -134,17 +133,9 @@
         });
       };
 
-    //  var updateLeaderboard = function(){
-    //    document.getElementById('leaderboard').innerHTML = '';
-    //    var table = db.collection('leaderboard').find({});
-    //    const results = table.toArray();
-    //    if (results.length > 0) {
-    //    results.forEach((result, results.length) => {
-
-    //        console.log(result);
-    //        // Here you could build your html or put the results in some other data structure you want to work with
-    //    });
-    //};
+      //document.getElementById('leaderboard').innerHTML = '';
+      //leaderboard.forEach(function(leaderboard) {
+      //  $('#gamesList').append($('<button>').text('#'+ leaderboard);
 
 
       // Chess Game
@@ -179,13 +170,14 @@
         var move = game.move({
           from: source,
           to: target,
-          promotion: 'q' // NOTE: always promote to a queen for example simplicity
+          promotion: 'q' //always promote to a queen for simplicity
         });
 
         // illegal move
         if (move === null) {
           return 'snapback';
-        } else {
+        }
+        else {
            socket.emit('move', {move: move, gameId: serverGame.id, board: game.fen()});
         }
       };
@@ -195,7 +187,5 @@
       var onSnapEnd = function() {
         board.position(game.fen());
       };
-
-
     });
 })();

@@ -9,10 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "express": "^4.17.1",
     "mongodb": "^3.6.0",
     "mongoose": "^5.9.28",
     "socket.io": "^2.3.0",
     "winjs": "^4.4.3"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.1"
   }
 }

@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "simple chess game with lobby and users can choose who to play",
   "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha -u tdd"
   },
   "author": "Ben Gearing",
   "license": "ISC",

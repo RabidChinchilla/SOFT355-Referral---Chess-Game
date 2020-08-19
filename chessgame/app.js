@@ -41,21 +41,7 @@ app.get('/leaderboard', function(req, res){
   });
 });
 
-app.post('/testConnection/',function(req, res){
-  connectNoEmit(req, res);
-});
 
-function connectNoEmit(req, res)
-{
-  socket = {};
-  socket.id = req.body.id;
-  players[socket.id] =
-  {
-      userId: socket.id,
-      userName : "TestName",
-  }
-  res.send(players);
-}
 
 io.on('connection', function(socket) {
     console.log('new connection ' + socket.id);
@@ -184,3 +170,19 @@ io.on('connection', function(socket) {
 http.listen(port, function() {
     console.log('listening on *: ' + port);
 });
+
+app.post('/testConnection/',function(req, res){
+  connectNoEmit(req, res);
+});
+
+function connectNoEmit(req, res)
+{
+  socket = {};
+  socket.userId = req.body.userId;
+  users[socket.userId] =
+  {
+      userId: "testID",
+      games: {},
+  }
+  res.send(users);
+};

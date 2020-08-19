@@ -55,7 +55,7 @@ io.on('connection', function(socket) {
         socket.userId = userId;
 
         if (!users[userId]) {
-            console.log('creating new user');
+            console.log('creating new user: '+ userId);
             users[userId] = {userId: socket.userId, games:{}};
         }
         else {
@@ -178,10 +178,10 @@ app.post('/testConnection/',function(req, res){
 function connectNoEmit(req, res)
 {
   socket = {};
-  socket.userId = req.body.userId;
+  socket.userId = req.userId;
   users[socket.userId] =
   {
-      userId: "testID",
+      userId: 'testID',
       games: {},
   }
   res.send(users);

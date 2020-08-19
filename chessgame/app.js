@@ -41,11 +41,28 @@ app.get('/leaderboard', function(req, res){
   });
 });
 
+app.post('/testConnection/',function(req, res){
+  connectNoEmit(req, res);
+});
+
+function connectNoEmit(req, res)
+{
+  socket = {};
+  socket.id = req.body.id;
+  players[socket.id] =
+  {
+      userId: socket.id,
+      userName : "TestName",
+  }
+  res.send(players);
+}
+
 io.on('connection', function(socket) {
-    console.log('new connection ' + socket);
+    console.log('new connection ' + socket.id);
 
     socket.on('login', function(userId) {
        doLogin(socket, userId);
+       console.log("Logging in user: " + userId);
     });
 
     function doLogin(socket, userId) {

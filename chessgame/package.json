@@ -1,12 +1,12 @@
 {
   "name": "chessgame",
   "version": "1.0.0",
-  "description": "",
+  "description": "simple chess game with lobby and users can choose who to play",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
-  "author": "",
+  "author": "Ben Gearing",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.2.0",

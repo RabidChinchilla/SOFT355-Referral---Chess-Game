@@ -14,11 +14,9 @@
       //var leaderboardSchema = new mongoose.Schema({name: String, wins: Number}, {collection: 'leaderboard'});
       //var leaderboard = mongoose.model('leaderboard', leaderboardSchema);
 
-      //////////////////////////////
-      // Socket.io handlers
-      //////////////////////////////
 
-      socket.on('login', function(msg) {
+      // Socket.io handlers
+      socket.on('login', function(msg) { //on login update user and games list
             usersOnline = msg.users;
             updateUserList();
 
@@ -27,11 +25,11 @@
       });
 
       socket.on('joinlobby', function (msg) {
-        addUser(msg);
+        addUser(msg); //add user to lobby
       });
 
        socket.on('leavelobby', function (msg) {
-        removeUser(msg);
+        removeUser(msg); //remove user from lobby
       });
 
       socket.on('gameadd', function(msg) {
@@ -42,7 +40,7 @@
               window.alert("Your opponent has resigned"); //let's player know their opponent has resigned
               socket.emit('login', username);
 
-              $('#page-lobby').show();
+              $('#page-lobby').show(); //show lobby and hide the game board
               $('#page-game').hide();
             }
       });
@@ -52,7 +50,7 @@
         playerColor = msg.color;
         initGame(msg.game);
 
-        $('#page-lobby').hide();
+        $('#page-lobby').hide(); //hide lobby and show the game board
         $('#page-game').show();
 
       });
@@ -60,7 +58,7 @@
       socket.on('move', function (msg) {
         if (serverGame && msg.gameId === serverGame.id) {
            game.move(msg.move);
-           board.position(game.fen());
+           board.position(game.fen()); //after a move update the game board position using the chess.js libraries
         }
       });
 
@@ -71,13 +69,11 @@
 
 
 
-      //////////////////////////////
       // Menus
-      //////////////////////////////
       $('#login').on('click', function() {
         username = $('#username').val();
 
-        if (username.length > 0) {
+        if (username.length > 0) { //if username is 0 do not enter the lobby
             $('#userLabel').text(username);
             socket.emit('login', username);
 
@@ -87,7 +83,7 @@
       });
 
       $('#game-back').on('click', function() {
-        socket.emit('login', username);
+        socket.emit('login', username); //on back button go back to the lobby
 
         $('#page-game').hide();
         $('#page-lobby').show();
@@ -96,7 +92,7 @@
       $('#game-resign').on('click', function() {
         socket.emit('resign', {userId: username, gameId: serverGame.id});
         window.alert("You have resigned"); //sends alert to player to has resigned
-        socket.emit('login', username);
+        socket.emit('login', username); //when resigning go back to lobby and don't show the game as active
         $('#page-game').hide();
         $('#page-lobby').show();
       });

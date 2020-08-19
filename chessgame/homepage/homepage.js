@@ -7,11 +7,7 @@
       var games = {};
       var boards = {};
 
-
-      //////////////////////////////
       // Socket.io handlers
-      //////////////////////////////
-
       socket.emit('homepagelogin');
       socket.on('homepagelogin', function(msg) {
             createGamesList(msg.games);
@@ -34,10 +30,7 @@
       });
 
 
-      //////////////////////////////
       // Chess Games
-      ////////////////////////////// 
-
     var createGamesList = function(serverGames) {
           Object.keys(serverGames).forEach(function(gameId) {
                 initGame(gameId, serverGames[gameId]);
